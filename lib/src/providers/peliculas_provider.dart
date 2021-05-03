@@ -32,6 +32,24 @@ class PeliculasProvider {
     return peliculas.peliculas;
   }
 
+  Future<List<Pelicula>> getPopular() async {
+    final url = _getFullUrl('movie/popular');
+
+    final respuesta = await http.get(url);
+
+    final Map<String, dynamic> decodedData = json.decode(respuesta.body);
+
+    if (decodedData == null || decodedData['results'] == null) {
+      return [];
+    }
+
+    final peliculas =
+        Peliculas.fromJson(decodedData['results'].cast<Map<String, dynamic>>());
+
+    print(peliculas);
+    return peliculas.peliculas;
+  }
+
   _getFullUrl(endpoint) {
     return Uri.https(_url, '3/$endpoint', {
       'api_key': _apiKey,

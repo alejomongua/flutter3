@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas/src/providers/peliculas_provider.dart';
 import 'package:peliculas/src/widgets/card_swiper_widget.dart';
+import 'package:peliculas/src/widgets/movies_horizontal_widget.dart';
 
 class HomePage extends StatelessWidget {
   final peliculasProvider = PeliculasProvider();
@@ -20,7 +21,10 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         child: Column(
-          children: [_swiperTarjetas()],
+          children: [
+            _swiperTarjetas(),
+            _footer(context),
+          ],
         ),
       ),
     );
@@ -38,5 +42,38 @@ class HomePage extends StatelessWidget {
             height: 400,
           );
         },
+      );
+
+  _footer(context) => Container(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 30),
+              child: Text(
+                'Películas populares',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            FutureBuilder(
+              future: peliculasProvider.getPopular(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return MovieHorizontalWidget(
+                    peliculas: snapshot.data,
+                  );
+                }
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
+          ],
+        ),
       );
 }
