@@ -71,4 +71,12 @@ class Pelicula {
 
     return NetworkImage('https://image.tmdb.org/t/p/w500/$posterPath');
   }
+
+  ImageProvider getBackgroundImage() {
+    if (posterPath == null) {
+      return AssetImage('assets/No_image_available_600_x_450.png');
+    }
+
+    return NetworkImage('https://image.tmdb.org/t/p/w500/$backdropPath');
+  }
 }

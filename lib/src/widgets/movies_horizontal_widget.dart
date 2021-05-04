@@ -35,32 +35,46 @@ class MovieHorizontalWidget extends StatelessWidget {
         pageSnapping: false,
         controller: _pageController,
         itemCount: peliculas.length,
-        itemBuilder: (context, i) => _tarjeta(context, peliculas[i], height),
+        itemBuilder: (context, i) =>
+            _crearTarjeta(context, peliculas[i], height),
       ),
     );
   }
 
-  Widget _tarjeta(context, Pelicula pelicula, height) => Container(
-        margin: EdgeInsets.only(right: 15),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: FadeInImage(
-                placeholder:
-                    AssetImage('assets/No_image_available_600_x_450.png'),
-                image: pelicula.getPosterImage(),
-                fit: BoxFit.cover,
-                height: height - 50,
-              ),
+  Widget _crearTarjeta(context, Pelicula pelicula, height) {
+    final _tarjeta = Container(
+      margin: EdgeInsets.only(right: 15),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: FadeInImage(
+              placeholder:
+                  AssetImage('assets/No_image_available_600_x_450.png'),
+              image: pelicula.getPosterImage(),
+              fit: BoxFit.cover,
+              height: height - 50,
             ),
-            SizedBox(height: 5),
-            Text(
-              pelicula.title,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ],
-        ),
-      );
+          ),
+          SizedBox(height: 5),
+          Text(
+            pelicula.title,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ],
+      ),
+    );
+
+    return GestureDetector(
+      child: _tarjeta,
+      onTap: () => _cargarPelicula(context, pelicula),
+    );
+  }
+
+  void _cargarPelicula(context, Pelicula pelicula) {
+    print('Película ${pelicula.title}');
+
+    Navigator.pushNamed(context, 'show', arguments: pelicula);
+  }
 }
