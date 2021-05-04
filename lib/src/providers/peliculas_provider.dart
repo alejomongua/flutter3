@@ -17,6 +17,7 @@ class PeliculasProvider {
 
   List<Pelicula> _peliculasPopulares = [];
   int _page = 1;
+  bool _cargando = false;
 
   final _streamController = StreamController<List<Pelicula>>.broadcast();
 
@@ -37,6 +38,10 @@ class PeliculasProvider {
   }
 
   Future<List<Pelicula>> getPopular() async {
+    if (_cargando) return [];
+
+    _cargando = true;
+
     final url = Uri.https(_url, '3/movie/popular', {
       'api_key': _apiKey,
       'language': _language,
@@ -48,6 +53,10 @@ class PeliculasProvider {
     _peliculasPopulares.addAll(_peliculas);
 
     popularesSink(_peliculasPopulares);
+
+    // Falta manejar excepciones para resetear esta bandera en caso de algún
+    // error
+    _cargando = false;
 
     return _peliculasPopulares;
   }
