@@ -48,13 +48,17 @@ class PeliculaShowPage extends StatelessWidget {
       );
 
   _crearTituloPoster(context, Pelicula pelicula) => Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: Image(
-                image: pelicula.getPosterImage(),
-                height: 150,
+            Hero(
+              tag: pelicula.uniqueId,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image(
+                  image: pelicula.getPosterImage(),
+                  height: 150,
+                ),
               ),
             ),
             SizedBox(

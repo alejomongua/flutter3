@@ -62,6 +62,15 @@ class PeliculasProvider {
     return _peliculasPopulares;
   }
 
+  Future<List<Pelicula>> search(queryString) async {
+    final url = Uri.https(_url, '3/search/movie', {
+      'api_key': _apiKey,
+      'language': _language,
+      'query': queryString,
+    });
+    return await _procesarRespuesta(url);
+  }
+
   _procesarRespuesta(url) async {
     final respuesta = await http.get(url);
 

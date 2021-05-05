@@ -42,18 +42,22 @@ class MovieHorizontalWidget extends StatelessWidget {
   }
 
   Widget _crearTarjeta(context, Pelicula pelicula, height) {
+    pelicula.uniqueId = '${pelicula.id}-mh';
     final _tarjeta = Container(
       margin: EdgeInsets.only(right: 15),
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: FadeInImage(
-              placeholder:
-                  AssetImage('assets/No_image_available_600_x_450.png'),
-              image: pelicula.getPosterImage(),
-              fit: BoxFit.cover,
-              height: height - 50,
+          Hero(
+            tag: pelicula.uniqueId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: FadeInImage(
+                placeholder:
+                    AssetImage('assets/No_image_available_600_x_450.png'),
+                image: pelicula.getPosterImage(),
+                fit: BoxFit.cover,
+                height: height - 50,
+              ),
             ),
           ),
           SizedBox(height: 5),
@@ -73,8 +77,6 @@ class MovieHorizontalWidget extends StatelessWidget {
   }
 
   void _cargarPelicula(context, Pelicula pelicula) {
-    print('Película ${pelicula.title}');
-
     Navigator.pushNamed(context, 'show', arguments: pelicula);
   }
 }
