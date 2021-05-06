@@ -114,17 +114,21 @@ class PeliculaShowPage extends StatelessWidget {
     );
   }
 
-  _crearActoresPageView(List<Actor> actores) => SizedBox(
-        height: 200,
-        child: PageView.builder(
-          controller: PageController(
-            initialPage: 1,
-            viewportFraction: 0.3,
+  _crearActoresPageView(List<Actor> actores) => Container(
+        padding: EdgeInsets.only(left: 20),
+        child: SizedBox(
+          height: 200,
+          child: ListView.builder(
+            controller: PageController(
+              initialPage: 1,
+              viewportFraction: 0.3,
+            ),
+            scrollDirection: Axis.horizontal,
+            itemCount: actores.length,
+            itemBuilder: (context, i) {
+              return _actorTarjeta(actores[i]);
+            },
           ),
-          itemCount: actores.length,
-          itemBuilder: (context, i) {
-            return _actorTarjeta(actores[i]);
-          },
         ),
       );
 

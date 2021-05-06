@@ -31,8 +31,9 @@ class MovieHorizontalWidget extends StatelessWidget {
 
     return Container(
       height: height,
-      child: PageView.builder(
-        pageSnapping: false,
+      padding: EdgeInsets.only(left: 20),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
         controller: _pageController,
         itemCount: peliculas.length,
         itemBuilder: (context, i) =>
