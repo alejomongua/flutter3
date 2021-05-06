@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
 
@@ -8,15 +10,20 @@ class CardSwiper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final _screenSize = MediaQuery.of(context).size;
-
+    final _screenSize = MediaQuery.of(context).size;
+    final index = Random().nextInt(peliculas.length);
+    peliculas[index].uniqueId = '${peliculas[index].id}-cs';
     return Container(
-      padding: EdgeInsets.only(top: 20),
-      child: _crearPelicula(context, peliculas[0]),
-      /*
-        layout: SwiperLayout.STACK,
-        itemWidth: _screenSize.width * 0.5,
-        itemHeight: _screenSize.height * 0.4,
+        padding: EdgeInsets.only(top: 20),
+        child: Container(
+          child: Hero(
+            tag: peliculas[index].uniqueId,
+            child: _crearPelicula(context, peliculas[index]),
+          ),
+          width: _screenSize.width * 0.4,
+          height: _screenSize.height * 0.4,
+        )
+        /*
         itemBuilder: (BuildContext context, int index) {
           peliculas[index].uniqueId = '${peliculas[index].id}-cs';
           return Hero(
@@ -24,11 +31,8 @@ class CardSwiper extends StatelessWidget {
             child: _crearPelicula(context, peliculas[index]),
           );
         },
-        itemCount: peliculas.length,
-        // pagination: SwiperPagination(),
-        // control: SwiperControl(),
         */
-    );
+        );
   }
 
   _crearPelicula(context, Pelicula pelicula) => GestureDetector(
