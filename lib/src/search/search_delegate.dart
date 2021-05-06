@@ -3,7 +3,7 @@ import 'package:peliculas/src/models/pelicula_model.dart';
 import 'package:peliculas/src/providers/peliculas_provider.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
-  Pelicula seleccion;
+  Pelicula? seleccion;
   final peliculasProvider = PeliculasProvider();
 
   @override
@@ -45,7 +45,7 @@ class MovieSearchDelegate extends SearchDelegate {
 
     return FutureBuilder(
       future: peliculasProvider.search(query),
-      builder: (context, snapshot) {
+      builder: (context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData)
           return Center(
             child: CircularProgressIndicator(),
@@ -53,7 +53,7 @@ class MovieSearchDelegate extends SearchDelegate {
         print(snapshot.data);
         return ListView(
           children: snapshot.data
-              .map<Widget>((pelicula) => ListTile(
+              ?.map<Widget>((pelicula) => ListTile(
                     leading: FadeInImage(
                       image: pelicula.getPosterImage(),
                       placeholder:

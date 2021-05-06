@@ -5,12 +5,13 @@ import 'package:peliculas/src/providers/peliculas_provider.dart';
 
 class PeliculaShowPage extends StatelessWidget {
   const PeliculaShowPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Pelicula pelicula = ModalRoute.of(context).settings.arguments;
+    final Pelicula pelicula =
+        ModalRoute.of(context)!.settings.arguments as Pelicula;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -21,7 +22,7 @@ class PeliculaShowPage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 _crearTituloPoster(context, pelicula),
                 _descripcion(pelicula),
-                _crearCasting(pelicula.id),
+                _crearCasting(pelicula.id!),
               ],
             ),
           )
@@ -52,7 +53,7 @@ class PeliculaShowPage extends StatelessWidget {
         child: Row(
           children: [
             Hero(
-              tag: pelicula.uniqueId,
+              tag: pelicula.uniqueId!,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Image(
@@ -69,12 +70,12 @@ class PeliculaShowPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    pelicula.title,
+                    pelicula.title!,
                     style: Theme.of(context).textTheme.headline5,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    pelicula.originalTitle,
+                    pelicula.originalTitle!,
                     style: Theme.of(context).textTheme.subtitle1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -96,7 +97,7 @@ class PeliculaShowPage extends StatelessWidget {
           horizontal: 10,
           vertical: 20,
         ),
-        child: Text(pelicula.overview),
+        child: Text(pelicula.overview!),
       );
 
   _crearCasting(int peliculaId) {
@@ -104,7 +105,7 @@ class PeliculaShowPage extends StatelessWidget {
 
     return FutureBuilder(
       future: peliculaProvider.getCast(peliculaId),
-      builder: (context, snapshot) {
+      builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return _crearActoresPageView(snapshot.data);
         }
@@ -145,7 +146,7 @@ class PeliculaShowPage extends StatelessWidget {
               ),
             ),
             Text(
-              actor.name,
+              actor.name!,
               overflow: TextOverflow.ellipsis,
             ),
           ],

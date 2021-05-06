@@ -7,7 +7,7 @@ import 'package:peliculas/src/widgets/movies_horizontal_widget.dart';
 class HomePage extends StatelessWidget {
   final peliculasProvider = PeliculasProvider();
 
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class HomePage extends StatelessWidget {
             ),
             StreamBuilder(
               stream: peliculasProvider.popularesStream,
-              builder: (context, snapshot) {
+              builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   return MovieHorizontalWidget(
                     peliculas: snapshot.data,

@@ -27,7 +27,7 @@ class PeliculasProvider {
   Stream<List<Pelicula>> get popularesStream => _streamController.stream;
 
   void disposeStreams() {
-    _streamController?.close();
+    _streamController.close();
   }
 
   Future<List<Pelicula>> getNowPlaying() async {
@@ -76,7 +76,7 @@ class PeliculasProvider {
 
     final Map<String, dynamic> decodedData = json.decode(respuesta.body);
 
-    if (decodedData == null || decodedData['results'] == null) {
+    if (decodedData['results'] == null) {
       return [];
     }
 
@@ -96,7 +96,7 @@ class PeliculasProvider {
 
     final Map<String, dynamic> decodedData = json.decode(respuesta.body);
 
-    if (decodedData == null || decodedData['cast'] == null) {
+    if (decodedData['cast'] == null) {
       return [];
     }
 

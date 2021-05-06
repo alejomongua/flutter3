@@ -6,9 +6,9 @@ class MovieHorizontalWidget extends StatelessWidget {
   final Function siguientePagina;
 
   const MovieHorizontalWidget({
-    @required this.peliculas,
-    Key key,
-    @required this.siguientePagina,
+    required this.peliculas,
+    Key? key,
+    required this.siguientePagina,
   }) : super(key: key);
 
   @override
@@ -49,7 +49,7 @@ class MovieHorizontalWidget extends StatelessWidget {
       child: Column(
         children: [
           Hero(
-            tag: pelicula.uniqueId,
+            tag: pelicula.uniqueId!,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: FadeInImage(
@@ -63,7 +63,7 @@ class MovieHorizontalWidget extends StatelessWidget {
           ),
           SizedBox(height: 5),
           Text(
-            pelicula.title,
+            pelicula.title!,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.caption,
           ),
