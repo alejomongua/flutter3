@@ -40,10 +40,14 @@ class PeliculaShowPage extends StatelessWidget {
         flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
           title: Text(pelicula.title),
-          background: FadeInImage(
-            placeholder: AssetImage('assets/No_image_available_600_x_450.png'),
-            image: pelicula.getBackgroundImage(),
-            fit: BoxFit.cover,
+          background: Hero(
+            tag: pelicula.getIdBackground(),
+            child: FadeInImage(
+              placeholder:
+                  AssetImage('assets/No_image_available_600_x_450.png'),
+              image: pelicula.getBackgroundImage(),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       );
@@ -53,7 +57,7 @@ class PeliculaShowPage extends StatelessWidget {
         child: Row(
           children: [
             Hero(
-              tag: pelicula.uniqueId!,
+              tag: pelicula.getIdTarjeta(),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Image(

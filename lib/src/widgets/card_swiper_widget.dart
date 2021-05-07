@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
 
@@ -10,29 +9,25 @@ class CardSwiper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
-    final index = Random().nextInt(peliculas.length);
-    peliculas[index].uniqueId = '${peliculas[index].id}-cs';
     return Container(
-        padding: EdgeInsets.only(top: 20),
-        child: Container(
-          child: Hero(
-            tag: peliculas[index].uniqueId,
-            child: _crearPelicula(context, peliculas[index]),
+      padding: EdgeInsets.only(top: 20),
+      child: Container(
+        child: CarouselSlider.builder(
+          itemCount: peliculas.length,
+          itemBuilder: (BuildContext context, int index, int realIndex) {
+            return Hero(
+              tag: peliculas[index].getIdBackground(),
+              child: _crearPelicula(context, peliculas[index]),
+            );
+          },
+          options: CarouselOptions(
+            aspectRatio: 2,
+            autoPlay: true,
+            enlargeCenterPage: true,
           ),
-          width: _screenSize.width * 0.4,
-          height: _screenSize.height * 0.4,
-        )
-        /*
-        itemBuilder: (BuildContext context, int index) {
-          peliculas[index].uniqueId = '${peliculas[index].id}-cs';
-          return Hero(
-            tag: peliculas[index].uniqueId,
-            child: _crearPelicula(context, peliculas[index]),
-          );
-        },
-        */
-        );
+        ),
+      ),
+    );
   }
 
   _crearPelicula(context, Pelicula pelicula) => GestureDetector(
@@ -43,7 +38,7 @@ class CardSwiper extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: FadeInImage(
             placeholder: AssetImage('assets/No_image_available_600_x_450.png'),
-            image: pelicula.getPosterImage(),
+            image: pelicula.getBackgroundImage(),
             fit: BoxFit.cover,
           ),
         ),

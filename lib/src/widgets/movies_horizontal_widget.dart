@@ -43,13 +43,12 @@ class MovieHorizontalWidget extends StatelessWidget {
   }
 
   Widget _crearTarjeta(context, Pelicula pelicula, height) {
-    pelicula.uniqueId = '${pelicula.id}-mh';
     final _tarjeta = Container(
       margin: EdgeInsets.only(right: 15),
       child: Column(
         children: [
           Hero(
-            tag: pelicula.uniqueId!,
+            tag: pelicula.getIdTarjeta(),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: FadeInImage(
@@ -62,10 +61,14 @@ class MovieHorizontalWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 5),
-          Text(
-            pelicula.title!,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.caption,
+          Container(
+            width: 120,
+            child: Text(
+              pelicula.title!,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.caption,
+            ),
           ),
         ],
       ),

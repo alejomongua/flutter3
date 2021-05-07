@@ -11,7 +11,6 @@ class Peliculas {
 }
 
 class Pelicula {
-  String? uniqueId;
   bool? adult;
   String? backdropPath;
   List<int>? genreIds;
@@ -62,6 +61,14 @@ class Pelicula {
     // Se divide entre 1 para hacer un cast a float
     voteAverage = json['vote_average'] / 1.0;
     voteCount = json['vote_count'];
+  }
+
+  String getIdTarjeta() {
+    return '$id-tarjeta';
+  }
+
+  String getIdBackground() {
+    return '$id-bg';
   }
 
   ImageProvider getPosterImage() {

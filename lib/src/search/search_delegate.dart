@@ -54,18 +54,20 @@ class MovieSearchDelegate extends SearchDelegate {
         return ListView(
           children: snapshot.data
               ?.map<Widget>((pelicula) => ListTile(
-                    leading: FadeInImage(
-                      image: pelicula.getPosterImage(),
-                      placeholder:
-                          AssetImage('assets/No_image_available_600_x_450.png'),
-                      fit: BoxFit.contain,
-                      width: 50,
+                    leading: Hero(
+                      tag: pelicula.getIdTarjeta(),
+                      child: FadeInImage(
+                        image: pelicula.getPosterImage(),
+                        placeholder: AssetImage(
+                            'assets/No_image_available_600_x_450.png'),
+                        fit: BoxFit.contain,
+                        width: 50,
+                      ),
                     ),
                     title: Text(pelicula.title),
                     subtitle: Text(pelicula.originalTitle),
                     onTap: () {
                       close(context, null);
-                      pelicula.uniqueId = '${pelicula.id}-s';
                       Navigator.pushNamed(context, 'show', arguments: pelicula);
                     },
                   ))
