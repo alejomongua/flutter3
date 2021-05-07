@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:peliculas/src/models/actores_model.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
@@ -39,7 +40,12 @@ class PeliculaShowPage extends StatelessWidget {
         pinned: true,
         flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
-          title: Text(pelicula.title),
+          title: FadeIn(
+            child: Text(
+              pelicula.title,
+              textAlign: TextAlign.center,
+            ),
+          ),
           background: Hero(
             tag: pelicula.getIdBackground(),
             child: FadeInImage(
@@ -70,26 +76,29 @@ class PeliculaShowPage extends StatelessWidget {
               width: 20,
             ),
             Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    pelicula.title!,
-                    style: Theme.of(context).textTheme.headline5,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    pelicula.originalTitle!,
-                    style: Theme.of(context).textTheme.subtitle1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.star),
-                      Text(pelicula.voteAverage.toString()),
-                    ],
-                  )
-                ],
+              child: FadeIn(
+                delay: Duration(milliseconds: 200),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      pelicula.title!,
+                      style: Theme.of(context).textTheme.headline5,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      pelicula.originalTitle!,
+                      style: Theme.of(context).textTheme.subtitle1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.star),
+                        Text(pelicula.voteAverage.toString()),
+                      ],
+                    )
+                  ],
+                ),
               ),
             )
           ],
@@ -138,22 +147,29 @@ class PeliculaShowPage extends StatelessWidget {
       );
 
   _actorTarjeta(Actor actor) => Container(
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: FadeInImage(
-                placeholder: AssetImage('assets/no_avatar.png'),
-                image: actor.getPosterImage(),
-                height: 150,
-                fit: BoxFit.cover,
+        child: Container(
+          margin: EdgeInsets.only(left: 15),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: FadeInImage(
+                  placeholder: AssetImage('assets/no_avatar.png'),
+                  image: actor.getPosterImage(),
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Text(
-              actor.name!,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+              Container(
+                width: 120,
+                child: Text(
+                  actor.name!,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }
