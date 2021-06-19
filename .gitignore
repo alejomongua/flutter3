@@ -47,3 +47,5 @@ app.*.map.json
 
 # Ignore apiKey file
 /lib/src/providers/api_key.dart
+
+android/key.properties
